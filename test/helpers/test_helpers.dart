@@ -1,13 +1,24 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_test/hive_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:stacked/stacked.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tots_test/models/auth_model_request.dart';
+import 'package:tots_test/models/auth_model_response.dart';
+import 'package:tots_test/models/get_clients_response.dart';
 import 'package:tots_test/services/client_service.dart';
 import 'package:tots_test/services/authentication_service.dart';
 import 'package:tots_test/services/api_service.dart';
+import 'package:tots_test/services/hive_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
+
+part '../mock_json.dart';
+part '../mock_objects.dart';
 
 @GenerateMocks([], customMocks: [
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
@@ -16,6 +27,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ClientService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthenticationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<HiveService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -25,7 +37,19 @@ void registerServices() {
   getAndRegisterClientService();
   getAndRegisterAuthenticationService();
   getAndRegisterApiService();
+  getAndRegisterHiveService();
 // @stacked-mock-register
+}
+
+Future<void> initApp() async {
+  dotenv.testLoad(fileInput: '''
+        BASE_URL=https://myback-execute-dot-my-back-401316.uc.r.appspot.com/6-tots-test
+      ''');
+
+  await setUpTestHive();
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(AuthModelResponseAdapter());
+  }
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -88,6 +112,12 @@ MockClientService getAndRegisterClientService() {
 MockAuthenticationService getAndRegisterAuthenticationService() {
   _removeRegistrationIfExists<AuthenticationService>();
   final service = MockAuthenticationService();
+  when(service.authLoginValue).thenReturn(ReactiveValue(authModelResponse));
+  when(service.authenticate(authRequest))
+      .thenAnswer((_) => Future.value(authModelResponse));
+
+  when(service.authLoginValue).thenReturn(ReactiveValue(null));
+  when(service.authenticate(any)).thenAnswer((_) => Future.value(null));
   locator.registerSingleton<AuthenticationService>(service);
   return service;
 }
@@ -95,7 +125,30 @@ MockAuthenticationService getAndRegisterAuthenticationService() {
 MockApiService getAndRegisterApiService() {
   _removeRegistrationIfExists<ApiService>();
   final service = MockApiService();
+  when(service.authenticate(authRequest))
+      .thenAnswer((_) => Future.value(authModelResponse));
+
+  when(service.authenticate(authBadRequest))
+      .thenAnswer((_) => Future.value(authBadResponse));
+
+  when(service.getClients()).thenAnswer((_) => Future.value(listOfClients));
+
   locator.registerSingleton<ApiService>(service);
+  return service;
+}
+
+MockHiveService getAndRegisterHiveService() {
+  _removeRegistrationIfExists<HiveService>();
+  final service = MockHiveService();
+
+  when(service.saveAuthModel(authModelResponse)).thenAnswer((_) async {});
+
+  when(service.getAuthModel())
+      .thenAnswer((_) => Future.value(authModelResponse));
+
+  when(service.deleteAuthModel()).thenAnswer((_) async {});
+
+  locator.registerSingleton<HiveService>(service);
   return service;
 }
 // @stacked-mock-create

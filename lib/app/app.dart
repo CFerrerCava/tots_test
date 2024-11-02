@@ -8,6 +8,7 @@ import 'package:tots_test/ui/views/login/login_view.dart';
 import 'package:tots_test/services/client_service.dart';
 import 'package:tots_test/services/authentication_service.dart';
 import 'package:tots_test/services/api_service.dart';
+import 'package:tots_test/services/hive_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -24,6 +25,7 @@ import 'package:tots_test/services/api_service.dart';
     LazySingleton(classType: ClientService),
     LazySingleton(classType: AuthenticationService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: HiveService),
 // @stacked-service
   ],
   bottomsheets: [

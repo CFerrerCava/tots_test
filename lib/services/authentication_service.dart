@@ -23,11 +23,16 @@ class AuthenticationService with ListenableServiceMixin {
     ]);
   }
 
+  set setAuthLoginValue(auth) => authLoginValue.value = auth;
+
   Future<dynamic> authenticate(AuthRequest request) {
     authLoadingValue.value = false;
-    return _apiService
-        .authenticate(request)
-        .then((value) {})
-        .whenComplete(() => authLoadingValue.value = false);
+    return _apiService.authenticate(request).then((authResponse) {
+      if (authResponse is Exception) {
+        //call to simple modal
+      } else {
+        setAuthLoginValue = authResponse;
+      }
+    }).whenComplete(() => authLoadingValue.value = false);
   }
 }
