@@ -25,7 +25,9 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
         child: Column(
           children: [
-            Text(lang.minimalTitle),
+            Text(
+              lang.minimalTitle,
+            ),
             const SizedBox(height: 58.88),
             Text(lang.loginSubTitle),
             const SizedBox(height: 34),
