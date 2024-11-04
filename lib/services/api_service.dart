@@ -77,7 +77,9 @@ class ApiService {
       final response = await _httpUtil.httpPost(
           request: request, withAuth: true, path: '/clients');
 
-      if (!response.isCreated) {
+      if (response.isCreated) {
+        return jsonDecode(response.body);
+      } else {
         return Exception('Failed to fetch clients: ${response.body}');
       }
     } catch (e) {
@@ -90,7 +92,9 @@ class ApiService {
       final response = await _httpUtil.httpPut(
           request: request, withAuth: true, path: '/clients/${request.id}');
 
-      if (!response.isCompleted) {
+      if (response.isCompleted) {
+        return jsonDecode(response.body);
+      } else {
         return Exception('Failed to fetch clients: ${response.body}');
       }
     } catch (e) {
@@ -121,8 +125,10 @@ class ApiService {
       final response =
           await _httpUtil.httpDelete(withAuth: true, path: '/clients/$id');
 
-      if (!response.isCompleted) {
-        return Exception('Failed to fetch : ${response.body}');
+      if (response.isCompleted) {
+        return jsonDecode(response.body);
+      } else {
+        return Exception('Failed to fetch clients: ${response.body}');
       }
     } catch (e) {
       return Exception('Failed to authenticate: $e');

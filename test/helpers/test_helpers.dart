@@ -8,6 +8,7 @@ import 'package:tots_test/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tots_test/models/auth_model_request.dart';
 import 'package:tots_test/models/auth_model_response.dart';
+import 'package:tots_test/models/client_model.dart';
 import 'package:tots_test/models/get_clients_response.dart';
 import 'package:tots_test/services/client_service.dart';
 import 'package:tots_test/services/authentication_service.dart';
@@ -133,6 +134,11 @@ MockApiService getAndRegisterApiService() {
 
   when(service.getClients()).thenAnswer((_) => Future.value(listOfClients));
 
+  when(service.createClient(clientsModelRequest))
+      .thenAnswer((_) => Future.value(mockCreateResponse));
+
+  when(service.updateClient(clientUpdateRequest))
+      .thenAnswer((_) => Future.value(mockCreateResponse));
   locator.registerSingleton<ApiService>(service);
   return service;
 }
@@ -147,6 +153,11 @@ MockHiveService getAndRegisterHiveService() {
       .thenAnswer((_) => Future.value(authModelResponse));
 
   when(service.deleteAuthModel()).thenAnswer((_) async {});
+
+  // when(service.saveAuthModel(authModelBadResponse)).thenAnswer((_) async {});
+
+  // when(service.getAuthModel())
+  //     .thenAnswer((_) => Future.value(authModelBadResponse));
 
   locator.registerSingleton<HiveService>(service);
   return service;

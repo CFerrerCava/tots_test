@@ -13,6 +13,13 @@ final mockAuthResponseJson = {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215YmFjay50b3RzLmFnZW5jeSIsImF1ZCI6Imh0dHBzOi8vdGVzdC50b3RzLmFnZW5jeSIsInVpZCI6IjMiLCJpZCI6IjMiLCJpYXQiOjE3MzA0ODc2NTUsImV4cCI6MTczMzA3OTY1NX0.6oY9_2Pqawv9zbxS5s91-TNPsinBktv4M9d7mGFV4GQ"
 };
 
+final mockAuthBadResponseJson = {
+  "id": 3,
+  "email": "test3@tots.agency",
+  "token_type": "bearer",
+  "access_token": ""
+};
+
 final mockAuthBadRequestJson = {"email": "-==--''.'", "password": ""};
 
 final mochAuthBadResponseJson = {
@@ -120,3 +127,27 @@ final mockListOfClients = {
     }
   ]
 };
+
+final mockCreateClient = {
+  "firstname": "Matias",
+  "lastname": "Camiletti",
+  "email": "matias@agencycoda.com",
+  "address": "Buenos Aires, Argentina",
+  "photo": "",
+  "caption": ""
+};
+
+final mockCreateClientBadRequest = {
+  "firstname": "",
+  "email": "matias",
+  "address": "Buenos Aires, Argentina",
+  "photo": "",
+};
+
+final mockCreateResponse = {"id": "25"};
+
+final mockUpdateClient = {"id": 25};
+
+final mockUpdateResponse = {"success": true};
+
+final mockGetClient = {"id": 50};

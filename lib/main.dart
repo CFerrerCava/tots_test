@@ -10,7 +10,6 @@ import 'package:tots_test/models/auth_model_response.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Hive.initFlutter();
   Hive.registerAdapter(AuthModelResponseAdapter());
   await setupLocator();

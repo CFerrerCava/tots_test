@@ -11,15 +11,15 @@ class HttpUtils {
 
   final String _baseUrl = Env.baseUrl;
 
-  Future<String> get _authToken async =>
+  Future<String> getAuthToken() async =>
       (await _hiveService.getAuthModel())?.accessToken ?? '';
 
-  static Map<String, String> get _headers =>
-      {"Content-Type": "application/json"};
+  final Map<String, String> _headers = {"Content-Type": "application/json"};
 
   Future<Map<String, String>> authHeaders({bool withAuth = false}) async {
     if (withAuth) {
-      _headers.addAll({'Authorization': await _authToken});
+      final authToken = await getAuthToken();
+      _headers['Authorization'] = authToken;
     }
     return _headers;
   }

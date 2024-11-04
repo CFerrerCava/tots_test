@@ -1,0 +1,18 @@
+{
+    "minimalTitle": "minimal",
+    "loginSubTitle": "LOG IN",
+    "mailPlaceholder": "Mail",
+    "passwordPlaceholder": "Password",
+    "clientsLabel": "CLIENTS",
+    "searchPlaceHolder": "Search...",
+    "loadMoreButton": "Load More",
+    "editButton": "Edit",
+    "addNewClientTitle": "Add new client",
+    "editClientTitle": "Edit client",
+    "firstNamePlaceholder": "First name*",
+    "lastNamePlaceholder": "Last name*",
+    "emailAdressPlaceholder": "Email address*",
+    "cancelButton": "Cancel",
+    "saveButton": "SAVE",
+    "uploadImagePlaceholder": "Upload image"
+}

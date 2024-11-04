@@ -27,6 +27,8 @@ class ClientService with ListenableServiceMixin {
   set setListOfClients(List<ClientsModel> list) =>
       listOfClientsValue.value = list;
 
+  set setGetClient(ClientsModel client) => clientSelectedValue.value = client;
+
   Future<void> getClients() async {
     clientLoadingValue.value = true;
     _apiService.getClients().then((response) {
@@ -35,6 +37,44 @@ class ClientService with ListenableServiceMixin {
       } else {
         setListOfClients = (response as GetClientsResponse).data ?? [];
       }
+    }).whenComplete(() => clientLoadingValue.value = false);
+  }
+
+  Future<dynamic> createClient(ClientsModel request) async {
+    clientLoadingValue.value = true;
+    _apiService.createClient(request).then((response) {
+      if (response is Exception) {
+        // add way to handle exceptions
+      } else {}
+    }).whenComplete(() => clientLoadingValue.value = false);
+  }
+
+  Future<dynamic> updateClient(ClientsModel request) async {
+    clientLoadingValue.value = true;
+    _apiService.updateClient(request).then((response) {
+      if (response is Exception) {
+        // add way to handle exceptions
+      } else {}
+    }).whenComplete(() => clientLoadingValue.value = false);
+  }
+
+  Future<dynamic> getClient(ClientsModel request) async {
+    clientLoadingValue.value = true;
+    _apiService.getClient(request.id ?? 0).then((response) {
+      if (response is Exception) {
+        // add way to handle exceptions
+      } else {
+        setGetClient = response as ClientsModel;
+      }
+    }).whenComplete(() => clientLoadingValue.value = false);
+  }
+
+  Future<dynamic> deleteClient(ClientsModel request) async {
+    clientLoadingValue.value = true;
+    _apiService.deleteClient(request.id ?? 0).then((response) {
+      if (response is Exception) {
+        // add way to handle exceptions
+      } else {}
     }).whenComplete(() => clientLoadingValue.value = false);
   }
 }
