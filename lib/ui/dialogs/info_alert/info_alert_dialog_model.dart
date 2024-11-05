@@ -21,6 +21,7 @@ class AbmClienteDialogModel extends FormViewModel {
   @override
   void dispose() {
     _clientService.clientSelectedValue.value = null;
+    clearForm();
     super.dispose();
   }
 
@@ -56,7 +57,10 @@ class AbmClienteDialogModel extends FormViewModel {
   }
 
   void saveOrEdit() {
-    if (lastName.isEmpty || firstName.isEmpty || emailAddress.isEmpty) {
+    if (lastName.isEmpty ||
+        firstName.isEmpty ||
+        emailAddress.isEmpty ||
+        (newClient.photo == null)) {
       DialogService().showDialog(description: lang.loginMessageDataError);
       return;
     }

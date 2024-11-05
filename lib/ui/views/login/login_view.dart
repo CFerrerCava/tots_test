@@ -22,7 +22,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginFormWidget {
       body: const KeyboardDismissOnTap(
         child: Stack(
           children: [
-            BackgroundBubbleWidget(),
+            BackgroundBubbleWidget.forLogin(),
             LoginFormWidget(),
           ],
         ),

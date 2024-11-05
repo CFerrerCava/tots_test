@@ -20,7 +20,7 @@ class HomeView extends StackedView<HomeViewModel> {
       child: KeyboardDismissOnTap(
         child: Stack(
           children: [
-            BackgroundBubbleWidget(),
+            BackgroundBubbleWidget.forHome(),
             HomeBodyWidget(),
           ],
         ),
