@@ -36,6 +36,12 @@ class LoginViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    clearForm();
+    super.dispose();
+  }
+
   Future<void> onPressed() async {
     if (!hasLoginEmail || !hasLoginPassword) {
       String messageError = lang.loginMessageDataError;
