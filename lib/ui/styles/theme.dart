@@ -11,8 +11,9 @@ class TotsColors {
   Color get whiteFFFFFF => const Color(0xFFFFFFFF);
   Color get black0D0D0D => const Color(0xFF0D0D0D);
   Color get black000000 => const Color(0xFF000000);
-  Color get gray08081661 => const Color(0x08081661);
-  Color get black222222F2 => const Color(0x222222F2);
+  Color get gray08081661 => const Color(0x61080816);
+  Color get black222222 => const Color(0xFF222222);
+  Color get black22222295 => const Color(0xF2222222);
   Color get grayE0E0E0 => const Color(0xFFE0E0E0);
   Color get yellowE4F353 => const Color(0xFFE4F353);
 }

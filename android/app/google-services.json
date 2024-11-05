@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "286797280227",
+    "firebase_url": "https://airy-cortex-300214-default-rtdb.firebaseio.com",
+    "project_id": "airy-cortex-300214",
+    "storage_bucket": "airy-cortex-300214.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286797280227:android:aba13c61c4aaa30b36e6d6",
+        "android_client_info": {
+          "package_name": "com.example.tots_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "286797280227-4r97hnm2stqat3ll562l3h7altv4k1jr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNtmqxEOwTJJ-edpElVQezFTL6FrZZKKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "286797280227-4r97hnm2stqat3ll562l3h7altv4k1jr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,18 +8,21 @@ import 'dart:ui' as _i8;
 
 import 'package:flutter/material.dart' as _i6;
 import 'package:hive/hive.dart' as _i3;
+import 'package:image_picker/image_picker.dart' as _i19;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i2;
 import 'package:stacked_services/stacked_services.dart' as _i4;
-import 'package:tots_test/models/auth_model_request.dart' as _i12;
-import 'package:tots_test/models/auth_model_response.dart' as _i11;
-import 'package:tots_test/models/client_model.dart' as _i15;
-import 'package:tots_test/models/register_user_request.dart' as _i14;
-import 'package:tots_test/services/api_service.dart' as _i13;
-import 'package:tots_test/services/authentication_service.dart' as _i10;
+import 'package:tots_test/models/auth_model_request.dart' as _i14;
+import 'package:tots_test/models/auth_model_response.dart' as _i13;
+import 'package:tots_test/models/client_model.dart' as _i10;
+import 'package:tots_test/models/register_user_request.dart' as _i16;
+import 'package:tots_test/services/api_service.dart' as _i15;
+import 'package:tots_test/services/authentication_service.dart' as _i12;
 import 'package:tots_test/services/client_service.dart' as _i9;
-import 'package:tots_test/services/hive_service.dart' as _i16;
+import 'package:tots_test/services/hive_service.dart' as _i17;
+import 'package:tots_test/services/s3_aws_service.dart' as _i18;
+import 'package:tots_test/util/item_state.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -705,13 +708,197 @@ class MockDialogService extends _i1.Mock implements _i4.DialogService {
 /// A class which mocks [ClientService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockClientService extends _i1.Mock implements _i9.ClientService {}
+class MockClientService extends _i1.Mock implements _i9.ClientService {
+  @override
+  _i2.ReactiveValue<bool> get clientLoadingValue => (super.noSuchMethod(
+        Invocation.getter(#clientLoadingValue),
+        returnValue: _FakeReactiveValue_0<bool>(
+          this,
+          Invocation.getter(#clientLoadingValue),
+        ),
+        returnValueForMissingStub: _FakeReactiveValue_0<bool>(
+          this,
+          Invocation.getter(#clientLoadingValue),
+        ),
+      ) as _i2.ReactiveValue<bool>);
+
+  @override
+  _i2.ReactiveValue<List<_i10.ClientsModel>> get listOfClientsValue =>
+      (super.noSuchMethod(
+        Invocation.getter(#listOfClientsValue),
+        returnValue: _FakeReactiveValue_0<List<_i10.ClientsModel>>(
+          this,
+          Invocation.getter(#listOfClientsValue),
+        ),
+        returnValueForMissingStub:
+            _FakeReactiveValue_0<List<_i10.ClientsModel>>(
+          this,
+          Invocation.getter(#listOfClientsValue),
+        ),
+      ) as _i2.ReactiveValue<List<_i10.ClientsModel>>);
+
+  @override
+  _i2.ReactiveValue<_i10.ClientsModel?> get clientSelectedValue =>
+      (super.noSuchMethod(
+        Invocation.getter(#clientSelectedValue),
+        returnValue: _FakeReactiveValue_0<_i10.ClientsModel?>(
+          this,
+          Invocation.getter(#clientSelectedValue),
+        ),
+        returnValueForMissingStub: _FakeReactiveValue_0<_i10.ClientsModel?>(
+          this,
+          Invocation.getter(#clientSelectedValue),
+        ),
+      ) as _i2.ReactiveValue<_i10.ClientsModel?>);
+
+  @override
+  _i2.ReactiveValue<bool> get clientAmbLoadingValue => (super.noSuchMethod(
+        Invocation.getter(#clientAmbLoadingValue),
+        returnValue: _FakeReactiveValue_0<bool>(
+          this,
+          Invocation.getter(#clientAmbLoadingValue),
+        ),
+        returnValueForMissingStub: _FakeReactiveValue_0<bool>(
+          this,
+          Invocation.getter(#clientAmbLoadingValue),
+        ),
+      ) as _i2.ReactiveValue<bool>);
+
+  @override
+  _i2.ReactiveValue<_i11.ItemState> get clientStateValue => (super.noSuchMethod(
+        Invocation.getter(#clientStateValue),
+        returnValue: _FakeReactiveValue_0<_i11.ItemState>(
+          this,
+          Invocation.getter(#clientStateValue),
+        ),
+        returnValueForMissingStub: _FakeReactiveValue_0<_i11.ItemState>(
+          this,
+          Invocation.getter(#clientStateValue),
+        ),
+      ) as _i2.ReactiveValue<_i11.ItemState>);
+
+  @override
+  set setListOfClients(List<_i10.ClientsModel>? list) => super.noSuchMethod(
+        Invocation.setter(
+          #setListOfClients,
+          list,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set setGetClient(_i10.ClientsModel? client) => super.noSuchMethod(
+        Invocation.setter(
+          #setGetClient,
+          client,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i7.Future<dynamic> getClients() => (super.noSuchMethod(
+        Invocation.method(
+          #getClients,
+          [],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> createClient(_i10.ClientsModel? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createClient,
+          [request],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> updateClient(_i10.ClientsModel? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateClient,
+          [request],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> getClient(_i10.ClientsModel? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getClient,
+          [request],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  _i7.Future<dynamic> deleteClient(_i10.ClientsModel? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteClient,
+          [request],
+        ),
+        returnValue: _i7.Future<dynamic>.value(),
+        returnValueForMissingStub: _i7.Future<dynamic>.value(),
+      ) as _i7.Future<dynamic>);
+
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
 
 /// A class which mocks [AuthenticationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthenticationService extends _i1.Mock
-    implements _i10.AuthenticationService {
+    implements _i12.AuthenticationService {
   @override
   _i2.ReactiveValue<bool> get authLoadingValue => (super.noSuchMethod(
         Invocation.getter(#authLoadingValue),
@@ -726,22 +913,22 @@ class MockAuthenticationService extends _i1.Mock
       ) as _i2.ReactiveValue<bool>);
 
   @override
-  _i2.ReactiveValue<_i11.AuthModelResponse?> get authLoginValue =>
+  _i2.ReactiveValue<_i13.AuthModelResponse?> get authLoginValue =>
       (super.noSuchMethod(
         Invocation.getter(#authLoginValue),
-        returnValue: _FakeReactiveValue_0<_i11.AuthModelResponse?>(
+        returnValue: _FakeReactiveValue_0<_i13.AuthModelResponse?>(
           this,
           Invocation.getter(#authLoginValue),
         ),
         returnValueForMissingStub:
-            _FakeReactiveValue_0<_i11.AuthModelResponse?>(
+            _FakeReactiveValue_0<_i13.AuthModelResponse?>(
           this,
           Invocation.getter(#authLoginValue),
         ),
-      ) as _i2.ReactiveValue<_i11.AuthModelResponse?>);
+      ) as _i2.ReactiveValue<_i13.AuthModelResponse?>);
 
   @override
-  set setAuthLoginValue(dynamic auth) => super.noSuchMethod(
+  set setAuthLoginValue(_i13.AuthModelResponse? auth) => super.noSuchMethod(
         Invocation.setter(
           #setAuthLoginValue,
           auth,
@@ -757,7 +944,7 @@ class MockAuthenticationService extends _i1.Mock
       ) as int);
 
   @override
-  _i7.Future<dynamic> authenticate(_i12.AuthRequest? request) =>
+  _i7.Future<dynamic> authenticate(_i14.AuthRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #authenticate,
@@ -808,9 +995,9 @@ class MockAuthenticationService extends _i1.Mock
 /// A class which mocks [ApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockApiService extends _i1.Mock implements _i13.ApiService {
+class MockApiService extends _i1.Mock implements _i15.ApiService {
   @override
-  _i7.Future<dynamic> authenticate(_i12.AuthRequest? request) =>
+  _i7.Future<dynamic> authenticate(_i14.AuthRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #authenticate,
@@ -821,7 +1008,7 @@ class MockApiService extends _i1.Mock implements _i13.ApiService {
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> registerUser(_i14.RegisterUserRequest? request) =>
+  _i7.Future<dynamic> registerUser(_i16.RegisterUserRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerUser,
@@ -842,7 +1029,7 @@ class MockApiService extends _i1.Mock implements _i13.ApiService {
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> createClient(_i15.ClientsModel? request) =>
+  _i7.Future<dynamic> createClient(_i10.ClientsModel? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #createClient,
@@ -853,7 +1040,7 @@ class MockApiService extends _i1.Mock implements _i13.ApiService {
       ) as _i7.Future<dynamic>);
 
   @override
-  _i7.Future<dynamic> updateClient(_i15.ClientsModel? request) =>
+  _i7.Future<dynamic> updateClient(_i10.ClientsModel? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateClient,
@@ -887,7 +1074,7 @@ class MockApiService extends _i1.Mock implements _i13.ApiService {
 /// A class which mocks [HiveService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHiveService extends _i1.Mock implements _i16.HiveService {
+class MockHiveService extends _i1.Mock implements _i17.HiveService {
   @override
   _i7.Future<_i3.Box<dynamic>> getCurrentBox() => (super.noSuchMethod(
         Invocation.method(
@@ -912,7 +1099,7 @@ class MockHiveService extends _i1.Mock implements _i16.HiveService {
       ) as _i7.Future<_i3.Box<dynamic>>);
 
   @override
-  _i7.Future<void> saveAuthModel(_i11.AuthModelResponse? authModel) =>
+  _i7.Future<void> saveAuthModel(_i13.AuthModelResponse? authModel) =>
       (super.noSuchMethod(
         Invocation.method(
           #saveAuthModel,
@@ -923,14 +1110,14 @@ class MockHiveService extends _i1.Mock implements _i16.HiveService {
       ) as _i7.Future<void>);
 
   @override
-  _i7.Future<_i11.AuthModelResponse?> getAuthModel() => (super.noSuchMethod(
+  _i7.Future<_i13.AuthModelResponse?> getAuthModel() => (super.noSuchMethod(
         Invocation.method(
           #getAuthModel,
           [],
         ),
-        returnValue: _i7.Future<_i11.AuthModelResponse?>.value(),
-        returnValueForMissingStub: _i7.Future<_i11.AuthModelResponse?>.value(),
-      ) as _i7.Future<_i11.AuthModelResponse?>);
+        returnValue: _i7.Future<_i13.AuthModelResponse?>.value(),
+        returnValueForMissingStub: _i7.Future<_i13.AuthModelResponse?>.value(),
+      ) as _i7.Future<_i13.AuthModelResponse?>);
 
   @override
   _i7.Future<void> deleteAuthModel() => (super.noSuchMethod(
@@ -941,4 +1128,29 @@ class MockHiveService extends _i1.Mock implements _i16.HiveService {
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
       ) as _i7.Future<void>);
+}
+
+/// A class which mocks [FirebaseService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFirebaseService extends _i1.Mock implements _i18.FirebaseService {
+  @override
+  _i7.Future<void> initializeDefault() => (super.noSuchMethod(
+        Invocation.method(
+          #initializeDefault,
+          [],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+
+  @override
+  _i7.Future<String?> uploadFile(_i19.XFile? file) => (super.noSuchMethod(
+        Invocation.method(
+          #uploadFile,
+          [file],
+        ),
+        returnValue: _i7.Future<String?>.value(),
+        returnValueForMissingStub: _i7.Future<String?>.value(),
+      ) as _i7.Future<String?>);
 }

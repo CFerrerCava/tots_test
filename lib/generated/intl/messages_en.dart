@@ -22,10 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addNew": MessageLookupByLibrary.simpleMessage("ADD NEW"),
         "addNewClientTitle":
             MessageLookupByLibrary.simpleMessage("Add new client"),
+        "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "cancelButton": MessageLookupByLibrary.simpleMessage("Cancel"),
         "clientsLabel": MessageLookupByLibrary.simpleMessage("CLIENTS"),
+        "deleteButton": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleted": MessageLookupByLibrary.simpleMessage("Deleted"),
         "editButton": MessageLookupByLibrary.simpleMessage("Edit"),
         "editClientTitle": MessageLookupByLibrary.simpleMessage("Edit client"),
         "emailAdressPlaceholder":
@@ -35,12 +39,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "lastNamePlaceholder":
             MessageLookupByLibrary.simpleMessage("Last name*"),
         "loadMoreButton": MessageLookupByLibrary.simpleMessage("Load More"),
+        "loading": MessageLookupByLibrary.simpleMessage("loading"),
+        "loginEmailError": MessageLookupByLibrary.simpleMessage(
+            "Please, fill out the email field"),
+        "loginMessageDataError":
+            MessageLookupByLibrary.simpleMessage("Please, fill out the filds"),
+        "loginPasswordError": MessageLookupByLibrary.simpleMessage(
+            "Please, fill out the password field"),
         "loginSubTitle": MessageLookupByLibrary.simpleMessage("LOG IN"),
         "mailPlaceholder": MessageLookupByLibrary.simpleMessage("Mail"),
         "minimalTitle": MessageLookupByLibrary.simpleMessage("minimal"),
         "passwordPlaceholder": MessageLookupByLibrary.simpleMessage("Password"),
+        "registed": MessageLookupByLibrary.simpleMessage("Registered"),
         "saveButton": MessageLookupByLibrary.simpleMessage("SAVE"),
         "searchPlaceHolder": MessageLookupByLibrary.simpleMessage("Search..."),
+        "updated": MessageLookupByLibrary.simpleMessage("Updated"),
         "uploadImagePlaceholder":
             MessageLookupByLibrary.simpleMessage("Upload image")
       };

@@ -7,6 +7,8 @@
     "searchPlaceHolder": "Search...",
     "loadMoreButton": "Load More",
     "editButton": "Edit",
+    "deleteButton": "Delete",
+    "addNew": "ADD NEW",
     "addNewClientTitle": "Add new client",
     "editClientTitle": "Edit client",
     "firstNamePlaceholder": "First name*",
@@ -14,5 +16,13 @@
     "emailAdressPlaceholder": "Email address*",
     "cancelButton": "Cancel",
     "saveButton": "SAVE",
-    "uploadImagePlaceholder": "Upload image"
+    "uploadImagePlaceholder": "Upload image",
+    "loginMessageDataError": "Please, fill out the filds",
+    "loginPasswordError": "Please, fill out the password field",
+    "loginEmailError": "Please, fill out the email field",
+    "loading": "loading",
+    "registed": "Registered",
+    "areYouSure": "Are you sure?",
+    "deleted": "Deleted",
+    "updated": "Updated"
 }

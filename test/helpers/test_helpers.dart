@@ -14,6 +14,7 @@ import 'package:tots_test/services/client_service.dart';
 import 'package:tots_test/services/authentication_service.dart';
 import 'package:tots_test/services/api_service.dart';
 import 'package:tots_test/services/hive_service.dart';
+import 'package:tots_test/services/s3_aws_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -29,6 +30,7 @@ part '../mock_objects.dart';
   MockSpec<AuthenticationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<HiveService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<FirebaseService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -39,6 +41,7 @@ void registerServices() {
   getAndRegisterAuthenticationService();
   getAndRegisterApiService();
   getAndRegisterHiveService();
+  getAndRegisterS3AwsService();
 // @stacked-mock-register
 }
 
@@ -160,6 +163,13 @@ MockHiveService getAndRegisterHiveService() {
   //     .thenAnswer((_) => Future.value(authModelBadResponse));
 
   locator.registerSingleton<HiveService>(service);
+  return service;
+}
+
+MockS3AwsService getAndRegisterS3AwsService() {
+  _removeRegistrationIfExists<FirebaseService>();
+  final service = MockS3AwsService();
+  locator.registerSingleton<FirebaseService>(service);
   return service;
 }
 // @stacked-mock-create

@@ -8,22 +8,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tots_test/util/input_validator.dart';
 
 const bool _autoTextFieldValidation = true;
 
 const String LoginEmailValueKey = 'loginEmail';
 const String LoginPasswordValueKey = 'loginPassword';
 
-final Map<String, TextEditingController> _LoginViewTextEditingControllers = {};
+final Map<String, TextEditingController>
+    _LoginFormWidgetTextEditingControllers = {};
 
-final Map<String, FocusNode> _LoginViewFocusNodes = {};
+final Map<String, FocusNode> _LoginFormWidgetFocusNodes = {};
 
-final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
-  LoginEmailValueKey: null,
-  LoginPasswordValueKey: null,
+final Map<String, String? Function(String?)?> _LoginFormWidgetTextValidations =
+    {
+  LoginEmailValueKey: InputValidator.validateEmail,
+  LoginPasswordValueKey: InputValidator.validatePassword,
 };
 
-mixin $LoginView {
+mixin $LoginFormWidget {
   TextEditingController get loginEmailController =>
       _getFormTextEditingController(LoginEmailValueKey);
   TextEditingController get loginPasswordController =>
@@ -37,21 +40,21 @@ mixin $LoginView {
     String key, {
     String? initialValue,
   }) {
-    if (_LoginViewTextEditingControllers.containsKey(key)) {
-      return _LoginViewTextEditingControllers[key]!;
+    if (_LoginFormWidgetTextEditingControllers.containsKey(key)) {
+      return _LoginFormWidgetTextEditingControllers[key]!;
     }
 
-    _LoginViewTextEditingControllers[key] =
+    _LoginFormWidgetTextEditingControllers[key] =
         TextEditingController(text: initialValue);
-    return _LoginViewTextEditingControllers[key]!;
+    return _LoginFormWidgetTextEditingControllers[key]!;
   }
 
   FocusNode _getFormFocusNode(String key) {
-    if (_LoginViewFocusNodes.containsKey(key)) {
-      return _LoginViewFocusNodes[key]!;
+    if (_LoginFormWidgetFocusNodes.containsKey(key)) {
+      return _LoginFormWidgetFocusNodes[key]!;
     }
-    _LoginViewFocusNodes[key] = FocusNode();
-    return _LoginViewFocusNodes[key]!;
+    _LoginFormWidgetFocusNodes[key] = FocusNode();
+    return _LoginFormWidgetFocusNodes[key]!;
   }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
@@ -100,15 +103,15 @@ mixin $LoginView {
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null
 
-    for (var controller in _LoginViewTextEditingControllers.values) {
+    for (var controller in _LoginFormWidgetTextEditingControllers.values) {
       controller.dispose();
     }
-    for (var focusNode in _LoginViewFocusNodes.values) {
+    for (var focusNode in _LoginFormWidgetFocusNodes.values) {
       focusNode.dispose();
     }
 
-    _LoginViewTextEditingControllers.clear();
-    _LoginViewFocusNodes.clear();
+    _LoginFormWidgetTextEditingControllers.clear();
+    _LoginFormWidgetFocusNodes.clear();
   }
 }
 
@@ -134,8 +137,10 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap..addAll({LoginEmailValueKey: value}),
     );
 
-    if (_LoginViewTextEditingControllers.containsKey(LoginEmailValueKey)) {
-      _LoginViewTextEditingControllers[LoginEmailValueKey]?.text = value ?? '';
+    if (_LoginFormWidgetTextEditingControllers.containsKey(
+        LoginEmailValueKey)) {
+      _LoginFormWidgetTextEditingControllers[LoginEmailValueKey]?.text =
+          value ?? '';
     }
   }
 
@@ -144,8 +149,9 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap..addAll({LoginPasswordValueKey: value}),
     );
 
-    if (_LoginViewTextEditingControllers.containsKey(LoginPasswordValueKey)) {
-      _LoginViewTextEditingControllers[LoginPasswordValueKey]?.text =
+    if (_LoginFormWidgetTextEditingControllers.containsKey(
+        LoginPasswordValueKey)) {
+      _LoginFormWidgetTextEditingControllers[LoginPasswordValueKey]?.text =
           value ?? '';
     }
   }
@@ -191,11 +197,11 @@ extension Methods on FormStateHelper {
 
 /// Returns the validation message for the given key
 String? getValidationMessage(String key) {
-  final validatorForKey = _LoginViewTextValidations[key];
+  final validatorForKey = _LoginFormWidgetTextValidations[key];
   if (validatorForKey == null) return null;
 
   String? validationMessageForKey = validatorForKey(
-    _LoginViewTextEditingControllers[key]!.text,
+    _LoginFormWidgetTextEditingControllers[key]!.text,
   );
 
   return validationMessageForKey;

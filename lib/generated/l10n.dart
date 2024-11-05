@@ -130,6 +130,26 @@ class AppLocalizations {
     );
   }
 
+  /// `Delete`
+  String get deleteButton {
+    return Intl.message(
+      'Delete',
+      name: 'deleteButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ADD NEW`
+  String get addNew {
+    return Intl.message(
+      'ADD NEW',
+      name: 'addNew',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add new client`
   String get addNewClientTitle {
     return Intl.message(
@@ -205,6 +225,86 @@ class AppLocalizations {
     return Intl.message(
       'Upload image',
       name: 'uploadImagePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, fill out the filds`
+  String get loginMessageDataError {
+    return Intl.message(
+      'Please, fill out the filds',
+      name: 'loginMessageDataError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, fill out the password field`
+  String get loginPasswordError {
+    return Intl.message(
+      'Please, fill out the password field',
+      name: 'loginPasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please, fill out the email field`
+  String get loginEmailError {
+    return Intl.message(
+      'Please, fill out the email field',
+      name: 'loginEmailError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `loading`
+  String get loading {
+    return Intl.message(
+      'loading',
+      name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registered`
+  String get registed {
+    return Intl.message(
+      'Registered',
+      name: 'registed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure?`
+  String get areYouSure {
+    return Intl.message(
+      'Are you sure?',
+      name: 'areYouSure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deleted`
+  String get deleted {
+    return Intl.message(
+      'Deleted',
+      name: 'deleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated`
+  String get updated {
+    return Intl.message(
+      'Updated',
+      name: 'updated',
       desc: '',
       args: [],
     );

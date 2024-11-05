@@ -1,29 +1,51 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
-import 'package:tots_test/ui/common/app_strings.dart';
+import 'package:tots_test/models/client_model.dart';
+import 'package:tots_test/services/client_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:tots_test/ui/common/app_strings.dart';
+import 'package:tots_test/util/item_state.dart';
+import 'package:tots_test/util/string_extension.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends FormViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _clientService = locator<ClientService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  @override
+  List<ListenableServiceMixin> get listenableServices => [_clientService];
 
-  int _counter = 0;
+  bool get loading => _clientService.clientLoadingValue.value;
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  List<ClientsModel> get _listOfClients =>
+      _clientService.listOfClientsValue.value.reversed.toList();
+
+  List<ClientsModel> clientsShowed = [];
+
+  ClientsModel? get clientSelected => _clientService.clientSelectedValue.value;
+
+  HomeViewModel() {
+    _getClients();
   }
 
+  CrossFadeState listCrossFadeState = CrossFadeState.showFirst;
+
+  set setListCrossFadeState(CrossFadeState state) {
+    listCrossFadeState = state;
+    notifyListeners();
+  }
+
+  int clientsPaggined = 0;
+  int _currentPage = 0;
+  static const _itemsPerPage = 5;
+
   void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
+    _dialogService.showCustomDialog(variant: DialogType.abmClient);
   }
 
   void showBottomSheet() {
@@ -32,5 +54,75 @@ class HomeViewModel extends BaseViewModel {
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,
     );
+  }
+
+  addNewClient() {
+    _clientService.clientStateValue.value = ItemState.create;
+    showDialog();
+  }
+
+  void _getClients() {
+    setListCrossFadeState = CrossFadeState.showFirst;
+    _clientService.getClients().then((_) {
+      if (_listOfClients.isNotEmpty) {
+        setListCrossFadeState = CrossFadeState.showSecond;
+        _calculatePaggined();
+      }
+    });
+  }
+
+  loadMore() {
+    _getClients();
+  }
+
+  void _calculatePaggined() {
+    final start = _currentPage * _itemsPerPage;
+    final end = start + _itemsPerPage;
+    clientsPaggined = end > _listOfClients.length ? _listOfClients.length : end;
+    clientsShowed = _listOfClients.sublist(0, clientsPaggined);
+    _currentPage++;
+    notifyListeners();
+  }
+
+  onSearch(String textSearched) {
+    final tempList = clientsShowed = _listOfClients.sublist(0, clientsPaggined);
+    if (textSearched.isEmpty) {
+      clientsShowed = tempList;
+    } else {
+      clientsShowed = tempList
+          .where((client) => client.toJson().toString().contains(textSearched))
+          .toList();
+    }
+    notifyListeners();
+  }
+
+  onEdit(ClientsModel clientsShowed) {
+    _clientService
+      ..clientStateValue.value = ItemState.edit
+      ..clientSelectedValue.value = clientsShowed;
+    showDialog();
+    notifyListeners();
+  }
+
+  onDelete(ClientsModel clientsShowed) {
+    DialogService()
+        .showDialog(
+            description: lang.areYouSure, cancelTitle: lang.cancelButton)
+        .then((onValue) {
+      if (onValue?.confirmed ?? false) {
+        _clientService
+            .deleteClient(clientsShowed)
+            .then((value) => _onValidate(value, clientsShowed));
+      }
+    });
+  }
+
+  FutureOr _onValidate(onValue, ClientsModel clientsShowed) {
+    if (onValue is! Exception) {
+      DialogService().showDialog(description: lang.deleted).then((onValue) {
+        _clientService.listOfClientsValue.value.remove(clientsShowed);
+        _calculatePaggined();
+      });
+    }
   }
 }

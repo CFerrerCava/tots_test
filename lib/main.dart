@@ -7,6 +7,7 @@ import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tots_test/models/auth_model_response.dart';
+import 'package:tots_test/services/s3_aws_service.dart';
 import 'package:tots_test/ui/styles/font.dart';
 
 Future<void> main() async {
@@ -17,6 +18,7 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   await dotenv.load();
+  FirebaseService().initializeDefault();
   runApp(const MainApp());
 }
 

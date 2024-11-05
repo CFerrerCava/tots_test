@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
-import 'package:tots_test/util/string_extension.dart';
+import 'package:tots_test/ui/widgets/background_bubble_widget.dart';
+import 'package:tots_test/ui/widgets/login/login_form_widget.dart';
+import 'package:tots_test/ui/widgets/login/login_form_widget.form.dart';
 
-import 'login_view.form.dart';
 import 'login_viewmodel.dart';
 
-@FormView(fields: [
-  FormTextField(name: 'loginEmail'),
-  FormTextField(name: 'loginPassword'),
-])
-class LoginView extends StackedView<LoginViewModel> with $LoginView {
+class LoginView extends StackedView<LoginViewModel> with $LoginFormWidget {
   const LoginView({Key? key}) : super(key: key);
 
   @override
@@ -21,21 +18,12 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
-        child: Column(
+      resizeToAvoidBottomInset: true,
+      body: const KeyboardDismissOnTap(
+        child: Stack(
           children: [
-            Text(
-              lang.minimalTitle,
-            ),
-            const SizedBox(height: 58.88),
-            Text(lang.loginSubTitle),
-            const SizedBox(height: 34),
-            TextFormField(controller: loginEmailController),
-            const SizedBox(height: 24),
-            TextFormField(controller: loginPasswordController),
-            const SizedBox(height: 52),
-            MaterialButton(onPressed: viewModel.onPressed)
+            BackgroundBubbleWidget(),
+            LoginFormWidget(),
           ],
         ),
       ),

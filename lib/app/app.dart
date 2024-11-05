@@ -9,6 +9,7 @@ import 'package:tots_test/services/client_service.dart';
 import 'package:tots_test/services/authentication_service.dart';
 import 'package:tots_test/services/api_service.dart';
 import 'package:tots_test/services/hive_service.dart';
+import 'package:tots_test/services/s3_aws_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:tots_test/services/hive_service.dart';
     LazySingleton(classType: AuthenticationService),
     LazySingleton(classType: ApiService),
     LazySingleton(classType: HiveService),
+    LazySingleton(classType: FirebaseService),
 // @stacked-service
   ],
   bottomsheets: [
@@ -33,7 +35,7 @@ import 'package:tots_test/services/hive_service.dart';
     // @stacked-bottom-sheet
   ],
   dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
+    StackedDialog(classType: AbmClientDialog),
     // @stacked-dialog
   ],
 )

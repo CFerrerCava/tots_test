@@ -15,6 +15,7 @@ import '../services/api_service.dart';
 import '../services/authentication_service.dart';
 import '../services/client_service.dart';
 import '../services/hive_service.dart';
+import '../services/s3_aws_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -34,4 +35,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => HiveService());
+  locator.registerLazySingleton(() => FirebaseService());
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/services/hive_service.dart';
@@ -31,11 +32,17 @@ class HttpUtils {
   }) async {
     final url = Uri.parse('$_baseUrl$path');
     final headers = await authHeaders(withAuth: withAuth);
-    return await http.post(
+    debugPrint('request: $url /n headers: $headers');
+    return await http
+        .post(
       url,
       headers: headers,
       body: jsonEncode(request.toJson()),
-    );
+    )
+        .then((onValue) {
+      debugPrint('response: ${onValue.body}');
+      return onValue;
+    });
   }
 
   Future<Response> httpPut({
@@ -45,11 +52,17 @@ class HttpUtils {
   }) async {
     final url = Uri.parse('$_baseUrl$path');
     final headers = await authHeaders(withAuth: withAuth);
-    return await http.put(
+    debugPrint('request: $url /n headers: $headers');
+    return await http
+        .put(
       url,
       headers: headers,
       body: jsonEncode(request.toJson()),
-    );
+    )
+        .then((onValue) {
+      debugPrint('response: ${onValue.body}');
+      return onValue;
+    });
   }
 
   Future<Response> httpDelete({
@@ -58,6 +71,10 @@ class HttpUtils {
   }) async {
     final url = Uri.parse('$_baseUrl$path');
     final headers = await authHeaders(withAuth: withAuth);
-    return await http.delete(url, headers: headers);
+    debugPrint('request: $url /n headers: $headers');
+    return await http.delete(url, headers: headers).then((onValue) {
+      debugPrint('response: ${onValue.body}');
+      return onValue;
+    });
   }
 }
