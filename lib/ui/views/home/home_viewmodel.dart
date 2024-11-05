@@ -53,7 +53,13 @@ class HomeViewModel extends FormViewModel {
   static const _itemsPerPage = 5;
 
   void showDialog() {
-    _dialogService.showCustomDialog(variant: DialogType.abmClient);
+    _dialogService
+        .showCustomDialog(variant: DialogType.abmClient)
+        .then((onValue) {
+      if (onValue?.confirmed ?? false) {
+        _getClients();
+      }
+    });
   }
 
   addNewClient() {
@@ -66,6 +72,7 @@ class HomeViewModel extends FormViewModel {
     _clientService.getClients().then((_) {
       setListCrossFadeState = CrossFadeState.showSecond;
       if (_listOfClients.isNotEmpty) {
+        setListIsEmpty = false;
         _calculatePaggined();
       } else {
         setListIsEmpty = true;
@@ -123,7 +130,11 @@ class HomeViewModel extends FormViewModel {
     if (onValue is! Exception) {
       DialogService().showDialog(description: lang.deleted).then((onValue) {
         _clientService.listOfClientsValue.value.remove(clientsShowed);
-        _calculatePaggined();
+        if (_listOfClients.isEmpty) {
+          _getClients();
+        } else {
+          _calculatePaggined();
+        }
       });
     }
   }

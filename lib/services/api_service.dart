@@ -61,13 +61,16 @@ class ApiService {
     try {
       final headers = await HttpUtils().authHeaders(withAuth: true);
       final response = await http.get(url, headers: headers);
-
+      print('request: $url /n headers: $headers');
       if (response.isCompleted) {
+        print('request: ${response.body}');
         return GetClientsResponse.fromJson(jsonDecode(response.body));
       } else {
+        print('request: ${response.body}');
         return Exception('Failed to fetch clients: ${response.body}');
       }
     } catch (e) {
+      print('request: $e');
       return Exception('Failed to authenticate: $e');
     }
   }

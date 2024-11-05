@@ -59,9 +59,11 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i4.LoginView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.LoginView(),
+      return _i5.PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const _i4.LoginView(),
         settings: data,
+        transitionsBuilder: data.transition ?? _i1.TransitionsBuilders.fadeIn,
       );
     },
   };

@@ -13,8 +13,8 @@ import 'package:tots_test/util/string_extension.dart';
 
 class AbmClienteDialogModel extends FormViewModel {
   final _clientService = locator<ClientService>();
-  final _navigationService = locator<NavigationService>();
   final _firebaseService = locator<FirebaseService>();
+  final _dialogService = locator<DialogService>();
   @override
   List<ListenableServiceMixin> get listenableServices => [_clientService];
 
@@ -51,7 +51,9 @@ class AbmClienteDialogModel extends FormViewModel {
 
   ClientsModel newClient = ClientsModel();
 
-  void cancel() => _navigationService.back();
+  void cancel({bool confirmed = false}) {
+    _dialogService.completeDialog(DialogResponse(confirmed: confirmed));
+  }
 
   void saveOrEdit() {
     if (lastName.isEmpty || firstName.isEmpty || emailAddress.isEmpty) {
@@ -98,7 +100,7 @@ class AbmClienteDialogModel extends FormViewModel {
                   ? lang.registed
                   : lang.updated)
           .then((_) {
-        cancel();
+        cancel(confirmed: true);
       });
     }
   }

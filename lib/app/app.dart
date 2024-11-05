@@ -17,7 +17,8 @@ import 'package:tots_test/services/s3_aws_service.dart';
   routes: [
     CustomRoute(page: HomeView, transitionsBuilder: TransitionsBuilders.zoomIn),
     MaterialRoute(page: StartupView),
-    MaterialRoute(page: LoginView),
+    CustomRoute(
+        page: LoginView, transitionsBuilder: TransitionsBuilders.fadeIn),
 // @stacked-route
   ],
   dependencies: [
