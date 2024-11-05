@@ -309,6 +309,16 @@ class AppLocalizations {
       args: [],
     );
   }
+
+  /// `List is empty, please add a new Client`
+  String get listIsEmpty {
+    return Intl.message(
+      'List is empty, please add a new Client',
+      name: 'listIsEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalizations> {

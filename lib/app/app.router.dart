@@ -45,9 +45,11 @@ class StackedRouter extends _i1.RouterBase {
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i2.HomeView(),
+      return _i5.PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const _i2.HomeView(),
         settings: data,
+        transitionsBuilder: data.transition ?? _i1.TransitionsBuilders.zoomIn,
       );
     },
     _i3.StartupView: (data) {

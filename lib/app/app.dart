@@ -1,3 +1,4 @@
+import 'package:stacked/stacked.dart';
 import 'package:tots_test/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:tots_test/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:tots_test/ui/views/home/home_view.dart';
@@ -14,7 +15,7 @@ import 'package:tots_test/services/s3_aws_service.dart';
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
+    CustomRoute(page: HomeView, transitionsBuilder: TransitionsBuilders.zoomIn),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
 // @stacked-route

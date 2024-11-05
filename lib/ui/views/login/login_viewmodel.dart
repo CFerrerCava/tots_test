@@ -20,10 +20,7 @@ class LoginViewModel extends FormViewModel {
   String get loginEmailText =>
       hasLoginEmail && !hasLoginEmailValidationMessage ? loginEmailValue! : '';
 
-  String get loginPasswordText =>
-      hasLoginPassword && !hasLoginPasswordValidationMessage
-          ? loginPasswordValue!
-          : '';
+  String get loginPasswordText => hasLoginPassword ? loginPasswordValue! : '';
 
   bool get loading => _authenticationService.authLoadingValue.value;
 

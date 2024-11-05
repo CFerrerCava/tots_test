@@ -40,55 +40,67 @@ class AbmClientDialog extends StackedView<AbmClienteDialogModel>
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: $theme.whiteFFFFFF,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: AbsorbPointer(
-          absorbing: viewModel.clientAmbLoading || viewModel.isImageUpload,
-          child: KeyboardDismissOnTap(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
+      child: AbsorbPointer(
+        absorbing: viewModel.clientAmbLoading || viewModel.isImageUpload,
+        child: KeyboardDismissOnTap(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: Text(
                     lang.addNewClientTitle,
                     style: $font.medium
                         .copyWith(color: $theme.black222222, fontSize: 17),
                   ),
-                  const SizedBox(height: 48),
-                  const AvatarUploadWidget(),
-                  const SizedBox(height: 16),
-                  Column(
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      top: 0, bottom: 25, left: 25, right: 25),
+                  color: $theme.whiteFDFDF9D4,
+                  child: Column(
                     children: [
-                      CustomTextFormFieldWidget.normal(
-                        hintText: lang.firstNamePlaceholder,
-                        color: $theme.black22222295,
-                        controller: abmFirstNameController,
-                        underlineColor: $theme.grayE0E0E0,
+                      const SizedBox(height: 48),
+                      const AvatarUploadWidget(),
+                      const SizedBox(height: 16),
+                      Column(
+                        children: [
+                          CustomTextFormFieldWidget.normal(
+                            hintText: lang.firstNamePlaceholder,
+                            color: $theme.black22222295,
+                            controller: abmFirstNameController,
+                            underlineColor: $theme.grayE0E0E0,
+                          ),
+                          const SizedBox(height: 14),
+                          CustomTextFormFieldWidget.normal(
+                            hintText: lang.lastNamePlaceholder,
+                            color: $theme.black22222295,
+                            controller: abmLastNameController,
+                            underlineColor: $theme.grayE0E0E0,
+                          ),
+                          const SizedBox(height: 14),
+                          CustomTextFormFieldWidget.normal(
+                            hintText: lang.emailAdressPlaceholder,
+                            color: $theme.black22222295,
+                            controller: abmEmailAddressController,
+                            underlineColor: $theme.grayE0E0E0,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: InputValidator.validateEmail,
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 14),
-                      CustomTextFormFieldWidget.normal(
-                        hintText: lang.lastNamePlaceholder,
-                        color: $theme.black22222295,
-                        controller: abmLastNameController,
-                        underlineColor: $theme.grayE0E0E0,
-                      ),
-                      const SizedBox(height: 14),
-                      CustomTextFormFieldWidget.normal(
-                        hintText: lang.emailAdressPlaceholder,
-                        color: $theme.black22222295,
-                        controller: abmEmailAddressController,
-                        underlineColor: $theme.grayE0E0E0,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: InputValidator.validateEmail,
-                      ),
+                      const SizedBox(height: 48),
                     ],
                   ),
-                  const SizedBox(height: 48),
-                  const ActionsDialogWidget(),
-                ],
-              ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+                  child: ActionsDialogWidget(),
+                ),
+              ],
             ),
           ),
         ),

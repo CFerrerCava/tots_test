@@ -1,24 +1,25 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
+import 'package:tots_test/app/app.router.dart';
 import 'package:tots_test/models/client_model.dart';
+import 'package:tots_test/services/authentication_service.dart';
 import 'package:tots_test/services/client_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tots_test/ui/common/app_strings.dart';
 import 'package:tots_test/util/item_state.dart';
 import 'package:tots_test/util/string_extension.dart';
 
 class HomeViewModel extends FormViewModel {
   final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
   final _clientService = locator<ClientService>();
+  final _authenticationService = locator<AuthenticationService>();
+  final _navigationService = locator<NavigationService>();
 
   @override
-  List<ListenableServiceMixin> get listenableServices => [_clientService];
+  List<ListenableServiceMixin> get listenableServices =>
+      [_clientService, _authenticationService];
 
   bool get loading => _clientService.clientLoadingValue.value;
 
@@ -40,20 +41,19 @@ class HomeViewModel extends FormViewModel {
     notifyListeners();
   }
 
+  bool listIsEmpty = false;
+
+  set setListIsEmpty(bool isEmpty) {
+    listIsEmpty = isEmpty;
+    notifyListeners();
+  }
+
   int clientsPaggined = 0;
   int _currentPage = 0;
   static const _itemsPerPage = 5;
 
   void showDialog() {
     _dialogService.showCustomDialog(variant: DialogType.abmClient);
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
   }
 
   addNewClient() {
@@ -64,9 +64,11 @@ class HomeViewModel extends FormViewModel {
   void _getClients() {
     setListCrossFadeState = CrossFadeState.showFirst;
     _clientService.getClients().then((_) {
+      setListCrossFadeState = CrossFadeState.showSecond;
       if (_listOfClients.isNotEmpty) {
-        setListCrossFadeState = CrossFadeState.showSecond;
         _calculatePaggined();
+      } else {
+        setListIsEmpty = true;
       }
     });
   }
@@ -124,5 +126,13 @@ class HomeViewModel extends FormViewModel {
         _calculatePaggined();
       });
     }
+  }
+
+  void logout() {
+    _authenticationService.logout().then((_) {
+      _navigationService.replaceWithLoginView();
+    }).catchError((onError) {
+      DialogService().showDialog(description: '$onError');
+    });
   }
 }

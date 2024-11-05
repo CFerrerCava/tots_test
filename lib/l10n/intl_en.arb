@@ -24,5 +24,6 @@
     "registed": "Registered",
     "areYouSure": "Are you sure?",
     "deleted": "Deleted",
-    "updated": "Updated"
+    "updated": "Updated",
+    "listIsEmpty": "List is empty, please add a new Client"
 }

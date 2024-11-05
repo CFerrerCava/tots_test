@@ -5,11 +5,12 @@ import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/models/auth_model_request.dart';
 import 'package:tots_test/models/auth_model_response.dart';
 import 'package:tots_test/services/api_service.dart';
+import 'package:tots_test/services/hive_service.dart';
 
 @LazySingleton()
 class AuthenticationService with ListenableServiceMixin {
   final _apiService = locator<ApiService>();
-
+  final _hiveService = locator<HiveService>();
   final authLoadingValue = ReactiveValue<bool>(false);
   final authLoginValue = ReactiveValue<AuthModelResponse?>(null);
 
@@ -32,5 +33,9 @@ class AuthenticationService with ListenableServiceMixin {
         DialogService().showDialog(description: '$authResponse');
       }
     }).whenComplete(() => authLoadingValue.value = false);
+  }
+
+  Future<void> logout() {
+    return _hiveService.deleteAuthModel();
   }
 }

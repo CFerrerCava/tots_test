@@ -10,13 +10,15 @@ class StartupViewModel extends ReactiveViewModel {
 
   @override
   List<ListenableServiceMixin> get listenableServices => [];
-  // Place anything here that needs to happen before we get into the application
+
   Future runStartupLogic() async {
     final auth = await _hiveService.getAuthModel();
-    if (auth?.accessToken?.isNotEmpty ?? false) {
-      _navigationService.replaceWithHomeView();
-    } else {
-      _navigationService.replaceWithLoginView();
-    }
+    Future.delayed(const Duration(seconds: 1), () {
+      if (auth?.accessToken?.isNotEmpty ?? false) {
+        _navigationService.replaceWithHomeView();
+      } else {
+        _navigationService.replaceWithLoginView();
+      }
+    });
   }
 }

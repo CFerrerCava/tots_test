@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("First name*"),
         "lastNamePlaceholder":
             MessageLookupByLibrary.simpleMessage("Last name*"),
+        "listIsEmpty": MessageLookupByLibrary.simpleMessage(
+            "List is empty, please add a new Client"),
         "loadMoreButton": MessageLookupByLibrary.simpleMessage("Load More"),
         "loading": MessageLookupByLibrary.simpleMessage("loading"),
         "loginEmailError": MessageLookupByLibrary.simpleMessage(

@@ -41,7 +41,6 @@ void registerServices() {
   getAndRegisterAuthenticationService();
   getAndRegisterApiService();
   getAndRegisterHiveService();
-  getAndRegisterS3AwsService();
 // @stacked-mock-register
 }
 
@@ -166,12 +165,6 @@ MockHiveService getAndRegisterHiveService() {
   return service;
 }
 
-MockS3AwsService getAndRegisterS3AwsService() {
-  _removeRegistrationIfExists<FirebaseService>();
-  final service = MockS3AwsService();
-  locator.registerSingleton<FirebaseService>(service);
-  return service;
-}
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {

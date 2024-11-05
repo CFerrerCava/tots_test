@@ -10,7 +10,6 @@ class FirebaseService {
     FirebaseApp app = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.android,
     );
-    print('Initialized default app $app');
   }
 
   Future<String?> uploadFile(XFile? file) async {
